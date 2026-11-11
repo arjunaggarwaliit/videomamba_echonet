@@ -1,0 +1,100 @@
+﻿=== FINAL CPU VALIDATION 11/01/2026 00:59:43 ===
+
+##### MODE full #####
+[setup] device=cpu precision=fp32 torch=2.11.0+cpu tag=cpu_full
+[data] root=C:\Users\Arjun Aggarwal\Desktop\courses\AI512\Project\Dataset\EchoNet-Dynamic\EchoNet-Dynamic
+[data] split sizes: {'TRAIN': {'n': 7465, 'mean': 55.77764129638672, 'std': 12.40635871887207, 'min': 6.907258033752441, 'max': 96.96723937988281}, 'VAL': {'n': 1288, 'mean': 55.82449722290039, 'std': 12.305055618286133, 'min': 9.482446670532227, 'max': 81.4150619506836}, 'TEST': {'n': 1277, 'mean': 55.49949645996094, 'std': 12.225492477416992, 'min': 10.192956924438477, 'max': 84.45235443115234}}
+[data] train=8 val=8 test=8 EF mean=55.78 sd=12.41
+[videomamba] loaded 412/416 tensors from videomamba_t16_k400_f16_res224.pth
+[videomamba] 2 tensors resized/re-initialised:
+     pos_embed (1, 197, 192)->(1, 50, 192)
+     temporal_pos_embedding (1, 16, 192)->(1, 4, 192)
+[model] total 6,927,745 | trainable 6,927,745 (100.000%)
+[opt] mode=full lr=0.0001 lr_head=0.001 wd=0.05 layer_decay=0.75
+[epoch 1/1] loss 7.6710 (232.1s) | val MAE 18.385 | RMSE 20.573 | R2 -0.0206 | r 0.2512 | bias -2.920 | +-5pt 0.0%
+[train] total 262.4s | best val MAE 18.385 | peak GPU 0 MB
+[test]  MAE 6.286 | RMSE 8.235 | R2 -1.3273 | r -0.4815 | bias +6.219 | +-5pt 25.0%
+[test]  R2=-1.3273 RMSE=8.235 bias=+6.219 LoA=[-6.00,18.44] within5=25.0% mae_lowEF=nan
+[videomamba] loaded 412/416 tensors from videomamba_t16_k400_f16_res224.pth
+[videomamba] 2 tensors resized/re-initialised:
+     pos_embed (1, 197, 192)->(1, 50, 192)
+     temporal_pos_embedding (1, 16, 192)->(1, 4, 192)
+
+================ SUMMARY ================
+mode            : full  (cpu_full)
+trainable params: 6,927,745 / 6,927,745 (100.000%)
+train time      : 232.1s / epoch, 232.1s total (1 epochs)
+peak GPU        : 0 MB allocated, 0 MB reserved
+inference       : 7331.55 ms/clip merged (0.1 clips/s), pretrained 7503.04 ms/clip
+storage         : full_state_bytes=26.6 MB, trainable_checkpoint_bytes=79.7 MB
+test            : MAE 6.286 | RMSE 8.235 | R2 -1.3273 | r -0.4815 | bias +6.219 | +-5pt 25.0%
+results written to results\cpu_full\metrics.json
+
+##### MODE lora #####
+[setup] device=cpu precision=fp32 torch=2.11.0+cpu tag=cpu_lora
+[data] root=C:\Users\Arjun Aggarwal\Desktop\courses\AI512\Project\Dataset\EchoNet-Dynamic\EchoNet-Dynamic
+[data] split sizes: {'TRAIN': {'n': 7465, 'mean': 55.77764129638672, 'std': 12.40635871887207, 'min': 6.907258033752441, 'max': 96.96723937988281}, 'VAL': {'n': 1288, 'mean': 55.82449722290039, 'std': 12.305055618286133, 'min': 9.482446670532227, 'max': 81.4150619506836}, 'TEST': {'n': 1277, 'mean': 55.49949645996094, 'std': 12.225492477416992, 'min': 10.192956924438477, 'max': 84.45235443115234}}
+[data] train=8 val=8 test=8 EF mean=55.78 sd=12.41
+[videomamba] loaded 412/416 tensors from videomamba_t16_k400_f16_res224.pth
+[videomamba] 2 tensors resized/re-initialised:
+     pos_embed (1, 197, 192)->(1, 50, 192)
+     temporal_pos_embedding (1, 16, 192)->(1, 4, 192)
+[lora] adapters on 96 modules / 24 layers (targets=['a_log', 'dt_proj', 'in_proj', 'out_proj'], r=4, r_dt=2, r_a=4)
+  a_log                                  75,312
+  dt_proj (tied)                         37,488
+  in_proj                                92,160
+  out_proj                               55,296
+[lora] trainable 260,449 / 7,188,001 (3.623%)
+[model] total 7,188,001 | trainable 260,449 (3.623%)
+[opt] mode=lora lr=0.001 lr_head=0.001 wd=0 layer_decay=1
+[epoch 1/1] loss 7.6803 (271.1s) | val MAE 18.380 | RMSE 20.572 | R2 -0.0204 | r 0.2512 | bias -2.909 | +-5pt 0.0%
+[train] total 300.8s | best val MAE 18.380 | peak GPU 0 MB
+[test]  MAE 6.291 | RMSE 8.243 | R2 -1.3319 | r -0.5146 | bias +6.230 | +-5pt 25.0%
+[test]  R2=-1.3319 RMSE=8.243 bias=+6.230 LoA=[-5.99,18.45] within5=25.0% mae_lowEF=nan
+[videomamba] loaded 412/416 tensors from videomamba_t16_k400_f16_res224.pth
+[videomamba] 2 tensors resized/re-initialised:
+     pos_embed (1, 197, 192)->(1, 50, 192)
+     temporal_pos_embedding (1, 16, 192)->(1, 4, 192)
+[merge] MAE before 6.2913 after 6.2913 (|d|=9.54e-07)
+
+================ SUMMARY ================
+mode            : lora  (cpu_lora)
+trainable params: 260,449 / 7,188,001 (3.623%)
+train time      : 271.1s / epoch, 271.1s total (1 epochs)
+peak GPU        : 0 MB allocated, 0 MB reserved
+inference       : 3168.56 ms/clip merged (0.3 clips/s), pretrained 5599.76 ms/clip
+storage         : adapter_file_bytes=1.1 MB, full_state_bytes=27.7 MB, trainable_checkpoint_bytes=29.9 MB, merged_state_bytes=26.6 MB
+test            : MAE 6.291 | RMSE 8.243 | R2 -1.3319 | r -0.5146 | bias +6.230 | +-5pt 25.0%
+results written to results\cpu_lora\metrics.json
+
+##### MODE head #####
+[setup] device=cpu precision=fp32 torch=2.11.0+cpu tag=cpu_head
+[data] root=C:\Users\Arjun Aggarwal\Desktop\courses\AI512\Project\Dataset\EchoNet-Dynamic\EchoNet-Dynamic
+[data] split sizes: {'TRAIN': {'n': 7465, 'mean': 55.77764129638672, 'std': 12.40635871887207, 'min': 6.907258033752441, 'max': 96.96723937988281}, 'VAL': {'n': 1288, 'mean': 55.82449722290039, 'std': 12.305055618286133, 'min': 9.482446670532227, 'max': 81.4150619506836}, 'TEST': {'n': 1277, 'mean': 55.49949645996094, 'std': 12.225492477416992, 'min': 10.192956924438477, 'max': 84.45235443115234}}
+[data] train=8 val=8 test=8 EF mean=55.78 sd=12.41
+[videomamba] loaded 412/416 tensors from videomamba_t16_k400_f16_res224.pth
+[videomamba] 2 tensors resized/re-initialised:
+     pos_embed (1, 197, 192)->(1, 50, 192)
+     temporal_pos_embedding (1, 16, 192)->(1, 4, 192)
+[model] total 6,927,745 | trainable 193 (0.003%)
+[opt] mode=head lr=0.001 lr_head=0.001 wd=0 layer_decay=1
+[epoch 1/1] loss 7.6707 (11.8s) | val MAE 18.400 | RMSE 20.578 | R2 -0.0210 | r 0.2375 | bias -2.950 | +-5pt 0.0%
+[train] total 23.9s | best val MAE 18.400 | peak GPU 0 MB
+[test]  MAE 6.271 | RMSE 8.213 | R2 -1.3146 | r -0.4815 | bias +6.189 | +-5pt 50.0%
+[test]  R2=-1.3146 RMSE=8.213 bias=+6.189 LoA=[-6.03,18.41] within5=50.0% mae_lowEF=nan
+[videomamba] loaded 412/416 tensors from videomamba_t16_k400_f16_res224.pth
+[videomamba] 2 tensors resized/re-initialised:
+     pos_embed (1, 197, 192)->(1, 50, 192)
+     temporal_pos_embedding (1, 16, 192)->(1, 4, 192)
+
+================ SUMMARY ================
+mode            : head  (cpu_head)
+trainable params: 193 / 6,927,745 (0.003%)
+train time      : 11.8s / epoch, 11.8s total (1 epochs)
+peak GPU        : 0 MB allocated, 0 MB reserved
+inference       : 2941.87 ms/clip merged (0.3 clips/s), pretrained 3042.25 ms/clip
+storage         : full_state_bytes=26.6 MB, trainable_checkpoint_bytes=26.6 MB
+test            : MAE 6.271 | RMSE 8.213 | R2 -1.3146 | r -0.4815 | bias +6.189 | +-5pt 50.0%
+results written to results\cpu_head\metrics.json
+
+=== DONE 11/01/2026 01:19:01 ===

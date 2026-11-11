@@ -1,0 +1,6 @@
+ckpt/
+cache/
+results/
+analysis/
+__pycache__/
+*.pyc

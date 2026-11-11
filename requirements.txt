@@ -1,0 +1,13 @@
+# Core deps.  Install torch first with the CUDA build matching your GPU, e.g. on Kaggle
+# the image already ships torch, so `pip install -r requirements.txt` is enough.
+torch>=2.1
+numpy>=1.24
+opencv-python-headless>=4.8
+matplotlib>=3.7
+tqdm>=4.65
+
+# Optional but strongly recommended on GPU: fused selective-scan kernels.
+# Both are sdist-only and compile for 20-40 min.  The code detects them and falls back
+# to a pure-PyTorch scan if they are missing, so these are not hard requirements.
+#   pip install causal-conv1d>=1.4.0
+#   pip install mamba-ssm>=2.2.2
